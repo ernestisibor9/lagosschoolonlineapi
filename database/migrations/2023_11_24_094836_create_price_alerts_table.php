@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('price_alerts', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('otp')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->string('email');
+            $table->integer('target_price')->nullable();
+            $table->date('date')->nullable();
+            $table->enum('action', ['long', 'short'])->default('long');
+            $table->string('stock_symbol')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('price_alerts');
     }
 };
